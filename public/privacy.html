@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blink - Privacy Policy</title>
+    <title>Randomly - Report Abuse</title>
     <link rel="shortcut icon" type="x-icon" href="icon.png">
     <style>
         :root {
             --primary: #6e45e2;
+            --danger: #ff4757;
             --bg-dark: #1a1a2e;
             --bg-darker: #16213e;
             --text: #f1f2f6;
@@ -26,15 +27,19 @@
             color: var(--text);
             line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
             max-width: 900px;
-            margin: 0 auto;
+            margin: auto;
             background: var(--bg-darker);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            flex: 1;
         }
         
         header {
@@ -62,50 +67,112 @@
         }
         
         .back-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--text-dim);
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            color: var(--text);
+            border-color: var(--text);
         }
         
         h1 {
             margin-bottom: 20px;
             font-size: 2rem;
+            color: var(--danger);
         }
         
-        h2 {
-            margin: 25px 0 15px;
-            color: var(--primary);
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
-        p, ul {
+        .form-group {
             margin-bottom: 15px;
-            color: var(--text-dim);
         }
         
-        ul {
-            padding-left: 20px;
-        }
-        
-        li {
+        label {
+            display: block;
             margin-bottom: 8px;
-        }
-        
-        .highlight {
-            color: var(--text);
             font-weight: 500;
         }
         
-        .last-updated {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            text-align: right;
+        select, textarea, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: var(--bg-dark);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff2d3f;
+        }
+        
+        .btn-secondary {
+            background: transparent;
             color: var(--text-dim);
+            border: 1px solid var(--text-dim);
+        }
+        
+        .btn-secondary:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .confirmation {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .confirmation i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
         
         @media (max-width: 768px) {
@@ -116,6 +183,10 @@
             h1 {
                 font-size: 1.5rem;
             }
+            
+            .btn-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -123,69 +194,115 @@
     <div class="container">
         <header>
             <div class="logo">
-                <span>Blink</span>
+                <span>Randomly</span>
             </div>
             <button class="back-btn" onclick="window.history.back()">
                 <i class="fas fa-arrow-left"></i> Back
             </button>
         </header>
         
-        <h1>Privacy Policy</h1>
+        <h1><i class="fas fa-exclamation-triangle"></i> Report Abuse</h1>
         
-        <p class="highlight">Last Updated: August 2025</p>
+        <form id="reportForm" class="report-form">
+            <div class="form-group">
+                <label for="issueType">Type of Issue</label>
+                <select id="issueType" required>
+                    <option value="">Select an issue type</option>
+                    <option value="harassment">Harassment or Bullying</option>
+                    <option value="nudity">Nudity/Sexual Content</option>
+                    <option value="hate-speech">Hate Speech</option>
+                    <option value="spam">Spam/Scam</option>
+                    <option value="underage">Underage User</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description (required)</label>
+                <textarea id="description" placeholder="Please describe what happened in detail..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="sessionTime">Approximate Time of Incident</label>
+                <input type="text" id="sessionTime" placeholder="e.g. '10 minutes ago' or '3:15 PM'">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="screenshot" checked>
+                    I have included a screenshot (attach after submitting)
+                </label>
+            </div>
+            
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Report
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
         
-        <h2>1. Information We Collect</h2>
-        <p>When you use Blink, we may collect:</p>
-        <ul>
-            <li><strong>Video/Audio Data:</strong> Your video and audio streams during active sessions (not stored)</li>
-            <li><strong>Connection Data:</strong> IP addresses, device information, and connection timestamps</li>
-            <li><strong>Optional Interests:</strong> Tags you provide for matching purposes</li>
-            <li><strong>Reports:</strong> Information submitted when reporting another user</li>
-        </ul>
-        
-        <h2>2. How We Use Your Information</h2>
-        <ul>
-            <li>Facilitate real-time video connections</li>
-            <li>Improve service quality and prevent abuse</li>
-            <li>Respond to support requests and reports</li>
-            <li>Analyze usage patterns (aggregated data only)</li>
-        </ul>
-        
-        <h2>3. Data Retention</h2>
-        <p>We <span class="highlight">do not store</span> your video/audio streams after sessions end. Connection logs are retained for 30 days for moderation purposes.</p>
-        
-        <h2>4. Third-Party Services</h2>
-        <p>We use:</p>
-        <ul>
-            <li>STUN/TURN servers for connectivity (may see your IP)</li>
-            <li>Analytics services (anonymous usage data only)</li>
-        </ul>
-        
-        <h2>5. Your Rights</h2>
-        <p>You may request:</p>
-        <ul>
-            <li>Access to your personal data</li>
-            <li>Deletion of your information</li>
-            <li>Opt-out of data collection (may limit functionality)</li>
-        </ul>
-        
-        <h2>6. Children's Privacy</h2>
-        <p>Blink is <span class="highlight">not for users under 18</span>. We do not knowingly collect data from children.</p>
-        
-        <h2>7. Changes to This Policy</h2>
-        <p>We may update this policy. Continued use constitutes acceptance.</p>
-        
-        <div class="last-updated">
-            <p>Contact: raghavgupta9880@gmail.com</p>
+        <div id="confirmation" class="confirmation">
+            <i class="fas fa-check-circle"></i>
+            <h2>Report Submitted</h2>
+            <p>Thank you for helping keep Randomly safe. We've received your report and will review it shortly.</p>
+            <p>Reference ID: <span id="reportId">BLK-XXXXXX</span></p>
+            <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i> Return Home
+            </button>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script>
-        // Add icon if FontAwesome fails to load
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('reportForm');
+            const confirmation = document.getElementById('confirmation');
+            
+            // Generate random report ID
+            function generateReportId() {
+                const chars = '0123456789ABCDEF';
+                let result = '';
+                for (let i = 0; i < 6; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return 'BLK-' + result;
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                setTimeout(function() {
+                    form.style.display = 'none';
+                    confirmation.style.display = 'block';
+                    document.getElementById('reportId').textContent = generateReportId();
+                    
+                    // In a real app, you would send data to your server here
+                    const reportData = {
+                        type: document.getElementById('issueType').value,
+                        description: document.getElementById('description').value,
+                        time: document.getElementById('sessionTime').value,
+                        hasScreenshot: document.getElementById('screenshot').checked,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    console.log('Report submitted:', reportData);
+                }, 1000);
+            });
+            
+            // Fallback for icons
             if (!document.querySelector('.fa-arrow-left')) {
-                document.querySelector('.back-btn').innerHTML = '← Back';
+                document.querySelectorAll('.fa').forEach(el => {
+                    if (el.classList.contains('fa-arrow-left')) el.innerHTML = '←';
+                    if (el.classList.contains('fa-paper-plane')) el.innerHTML = 'Send';
+                    if (el.classList.contains('fa-times')) el.innerHTML = 'Cancel';
+                    if (el.classList.contains('fa-check-circle')) el.innerHTML = '✓';
+                    if (el.classList.contains('fa-home')) el.innerHTML = 'Home';
+                    if (el.classList.contains('fa-exclamation-triangle')) el.innerHTML = '⚠';
+                });
             }
         });
     </script>
