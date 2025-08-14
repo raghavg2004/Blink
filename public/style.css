@@ -37,8 +37,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;           /* take full width */
+    max-width: none;       /* remove 1200px limit */
+    margin: 0;             /* no horizontal centering */
     padding: 0 20px;
 }
 
