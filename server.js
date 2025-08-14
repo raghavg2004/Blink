@@ -61,21 +61,24 @@ io.on('connection', (socket) => {
         const match = findMatch(user);
         
         if (match) {
-            // Create a room
             const roomId = `${socket.id}-${match.socketId}`;
             rooms[roomId] = {
                 users: [socket.id, match.socketId],
                 createdAt: new Date()
             };
-            
-            // Notify both users
+
             socket.join(roomId);
-            io.to(match.socketId).join(roomId);
-            
+            const matchSocket = io.sockets.sockets.get(match.socketId);
+            if (matchSocket) {
+                matchSocket.join(roomId);
+            }
+
             // First user is the caller
             socket.emit('paired', { roomId, isCaller: true });
-            io.to(match.socketId).emit('paired', { roomId, isCaller: false });
-            
+            if (matchSocket) {
+                matchSocket.emit('paired', { roomId, isCaller: false });
+            }
+
             console.log('Paired users:', socket.id, 'and', match.socketId, 'in room', roomId);
         } else {
             // No match found, add to queue
@@ -158,4 +161,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+
 });
