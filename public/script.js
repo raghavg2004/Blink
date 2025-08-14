@@ -304,7 +304,8 @@ function createPeerConnection() {
     peerConnection.onconnectionstatechange = () => {
         switch (peerConnection.connectionState) {
             case 'connected':
-                connectionStatus.textContent = 'Connected';
+                //connectionStatus.textContent =  'Connected with stranger';
+                connectionStatus.style.display = 'none'; // hide it completely
                 break;
             case 'disconnected':
             case 'failed':
@@ -500,5 +501,4 @@ function submitReportHandler() {
 }
 
 // Initialize the app when DOM is loaded
-
 document.addEventListener('DOMContentLoaded', init);
