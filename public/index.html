@@ -46,17 +46,16 @@
     </div>
 </header>
 
-
         <main class="main-content">
             <div class="video-container">
-                <div class="video-wrapper">
-                    <video id="localVideo" autoplay muted playsinline></video>
-                    <div class="video-overlay" id="localOverlay">You</div>
-                </div>
                 <div class="video-wrapper">
                     <video id="remoteVideo" autoplay playsinline></video>
                     <div class="video-overlay" id="remoteOverlay">Stranger</div>
                     <div class="connection-status" id="connectionStatus">Waiting for stranger...</div>
+                </div>
+                <div class="video-wrapper">
+                    <video id="localVideo" autoplay muted playsinline></video>
+                    <div class="video-overlay" id="localOverlay">You</div>
                 </div>
             </div>
 
@@ -96,8 +95,8 @@
                         <select id="audioSelect"></select>
                     </div>
                     <div class="setting-group">
-                        <label for="interestInput">Interests (comma separated):</label>
-                        <input type="text" id="interestInput" placeholder="e.g. music, sports, movies">
+                        <label for="interestInput">Room Key:</label>
+                        <input type="text" id="interestInput" placeholder="e.g. ABCD, 1234, etc.">
                     </div>
                 </div>
             </div>
