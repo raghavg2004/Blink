@@ -38,12 +38,10 @@ function findMatch(newUser) {
             existingInterests.includes(interest)
         );
         
-        if (commonInterests.length > 0 || waitingQueue.length > 5) {
-            // Match found or queue is getting long
+        if (commonInterests.length > 0 || waitingQueue.length >= 1) {
             return waitingQueue.splice(i, 1)[0];
         }
     }
-    
     return null;
 }
 
@@ -161,5 +159,4 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-
 });
