@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink - Report Abuse</title>
+    <style>
+        :root {
+            --primary: #6e45e2;
+            --danger: #ff4757;
+            --bg-dark: #1a1a2e;
+            --bg-darker: #16213e;
+            --text: #f1f2f6;
+            --text-dim: #a4b0be;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: var(--bg-darker);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            flex: 1;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            background: linear-gradient(90deg, var(--primary), #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--text-dim);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: var(--danger);
+        }
+        
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        select, textarea, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: var(--bg-dark);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff2d3f;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--text-dim);
+        }
+        
+        .btn-secondary:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .confirmation {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .confirmation i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span>Blink</span>
+            </div>
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </header>
+        
+        <h1><i class="fas fa-exclamation-triangle"></i> Report Abuse</h1>
+        
+        <form id="reportForm" class="report-form">
+            <div class="form-group">
+                <label for="issueType">Type of Issue</label>
+                <select id="issueType" required>
+                    <option value="">Select an issue type</option>
+                    <option value="harassment">Harassment or Bullying</option>
+                    <option value="nudity">Nudity/Sexual Content</option>
+                    <option value="hate-speech">Hate Speech</option>
+                    <option value="spam">Spam/Scam</option>
+                    <option value="underage">Underage User</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description (required)</label>
+                <textarea id="description" placeholder="Please describe what happened in detail..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="sessionTime">Approximate Time of Incident</label>
+                <input type="text" id="sessionTime" placeholder="e.g. '10 minutes ago' or '3:15 PM'">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="screenshot" checked>
+                    I have included a screenshot (attach after submitting)
+                </label>
+            </div>
+            
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Report
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
+        
+        <div id="confirmation" class="confirmation">
+            <i class="fas fa-check-circle"></i>
+            <h2>Report Submitted</h2>
+            <p>Thank you for helping keep Blink safe. We've received your report and will review it shortly.</p>
+            <p>Reference ID: <span id="reportId">BLK-XXXXXX</span></p>
+            <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i> Return Home
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('reportForm');
+            const confirmation = document.getElementById('confirmation');
+            
+            // Generate random report ID
+            function generateReportId() {
+                const chars = '0123456789ABCDEF';
+                let result = '';
+                for (let i = 0; i < 6; i++) {
+                    result += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return 'BLK-' + result;
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                setTimeout(function() {
+                    form.style.display = 'none';
+                    confirmation.style.display = 'block';
+                    document.getElementById('reportId').textContent = generateReportId();
+                    
+                    // In a real app, you would send data to your server here
+                    const reportData = {
+                        type: document.getElementById('issueType').value,
+                        description: document.getElementById('description').value,
+                        time: document.getElementById('sessionTime').value,
+                        hasScreenshot: document.getElementById('screenshot').checked,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    console.log('Report submitted:', reportData);
+                }, 1000);
+            });
+            
+            // Fallback for icons
+            if (!document.querySelector('.fa-arrow-left')) {
+                document.querySelectorAll('.fa').forEach(el => {
+                    if (el.classList.contains('fa-arrow-left')) el.innerHTML = '←';
+                    if (el.classList.contains('fa-paper-plane')) el.innerHTML = 'Send';
+                    if (el.classList.contains('fa-times')) el.innerHTML = 'Cancel';
+                    if (el.classList.contains('fa-check-circle')) el.innerHTML = '✓';
+                    if (el.classList.contains('fa-home')) el.innerHTML = 'Home';
+                    if (el.classList.contains('fa-exclamation-triangle')) el.innerHTML = '⚠';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

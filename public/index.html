@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blink - Chat before you think!</title>
+    <link rel="shortcut icon" type="x-icon" href="icon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+    <style>
+        .logo {
+            display: flex;
+            align-items: center; /* Vertically center icon & text */
+            font-size: 2rem; /* Change text size here */
+            gap: 0.5rem; /* Space between icon & text */
+        }
+        .logo-icon {
+            height: 1em; /* Match icon height to text height */
+            width: auto; /* Keep aspect ratio */
+        }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+
+    <h1 class="logo">
+        <img src="icon.png" alt="Blink" class="logo-icon">
+        <span>Blink</span>
+    </h1>
+
+    <div class="status-indicator">
+        <span id="statusText">Disconnected</span>
+        <div class="status-dot" id="statusDot"></div>
+    </div>
+</header>
+
+
+        <main class="main-content">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="localVideo" autoplay muted playsinline></video>
+                    <div class="video-overlay" id="localOverlay">You</div>
+                </div>
+                <div class="video-wrapper">
+                    <video id="remoteVideo" autoplay playsinline></video>
+                    <div class="video-overlay" id="remoteOverlay">Stranger</div>
+                    <div class="connection-status" id="connectionStatus">Waiting for stranger...</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startButton" class="btn primary">
+                    <i class="fas fa-play"></i> Start Chat
+                </button>
+                <button id="nextButton" class="btn secondary" disabled>
+                    <i class="fas fa-random"></i> Next Stranger
+                </button>
+                <button id="stopButton" class="btn danger" disabled>
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message..." disabled>
+                    <button id="sendButton" class="btn primary" disabled>
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-panel">
+                <div class="settings-toggle" id="settingsToggle">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="settings-content" id="settingsContent">
+                    <div class="setting-group">
+                        <label for="videoSelect">Camera:</label>
+                        <select id="videoSelect"></select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="audioSelect">Microphone:</label>
+                        <select id="audioSelect"></select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="interestInput">Interests (comma separated):</label>
+                        <input type="text" id="interestInput" placeholder="e.g. music, sports, movies">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© <span id="year"></span> Blink | 
+                <a href="privacy.html" id="privacyLink">Privacy Policy</a> | 
+                <a href="#" id="reportLink">Report Abuse</a>
+            </p>
+            <script>
+                document.getElementById("year").textContent = new Date().getFullYear();
+            </script>
+        </footer>
+
+    </div>
+
+    <div class="modal" id="permissionModal">
+        <div class="modal-content">
+            <h2>Permission Required</h2>
+            <p>StrangerChat needs access to your camera and microphone to work properly.</p>
+            <div class="modal-buttons">
+                <button id="grantPermission" class="btn primary">Allow Access</button>
+                <button id="denyPermission" class="btn secondary">Continue Without Video</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <h2>Report User</h2>
+            <p>Please describe the issue you encountered:</p>
+            <textarea id="reportText" rows="4" placeholder="What happened?"></textarea>
+            <div class="modal-buttons">
+                <button id="submitReport" class="btn danger">Submit Report</button>
+                <button id="cancelReport" class="btn secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
