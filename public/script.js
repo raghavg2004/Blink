@@ -143,7 +143,7 @@ function setupEventListeners() {
 
 // Connect to signaling server
 function connectToSignalingServer() {
-    socket = io();
+    socket = io(window.location.origin);
     
     socket.on('connect', () => {
         updateConnectionStatus(true);
@@ -500,4 +500,5 @@ function submitReportHandler() {
 }
 
 // Initialize the app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', init);
