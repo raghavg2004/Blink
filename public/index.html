@@ -11,40 +11,40 @@
 <body>
     <div class="container">
         <header class="header">
-    <style>
-        .logo {
-            display: flex;
-            align-items: center; /* Vertically center icon & text */
-            font-size: 2rem; /* Change text size here */
-            gap: 0.5rem; /* Space between icon & text */
-        }
-        .logo-icon {
-            height: 1em; /* Match icon height to text height */
-            width: auto; /* Keep aspect ratio */
-        }
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: red;
-        }
-    </style>
+            <style>
+                .logo {
+                    display: flex;
+                    align-items: center; /* Vertically center icon & text */
+                    font-size: 2rem; /* Change text size here */
+                    gap: 0.5rem; /* Space between icon & text */
+                }
+                .logo-icon {
+                    height: 1em; /* Match icon height to text height */
+                    width: auto; /* Keep aspect ratio */
+                }
+                .status-indicator {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                .status-dot {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: red;
+                }
+            </style>
 
-    <h1 class="logo">
-        <img src="icon.png" alt="Blink" class="logo-icon">
-        <span>Blink</span>
-    </h1>
+            <h1 class="logo">
+                <img src="icon.png" alt="Blink" class="logo-icon">
+                <span>Blink</span>
+            </h1>
 
-    <div class="status-indicator">
-        <span id="statusText">Disconnected</span>
-        <div class="status-dot" id="statusDot"></div>
-    </div>
-</header>
+            <div class="status-indicator">
+                <span id="statusText">Disconnected</span>
+                <div class="status-dot" id="statusDot"></div>
+            </div>
+        </header>
 
         <main class="main-content">
             <div class="video-container">
