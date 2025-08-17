@@ -152,6 +152,10 @@ function connectToSignalingServer() {
     socket.on('disconnect', () => {
         updateConnectionStatus(false);
     });
+
+    socket.on('user-count', (count) => {
+    document.getElementById('userCount').textContent = `${count} Online`;
+    });
     
     socket.on('error', (error) => {
         console.error('Socket error:', error);
@@ -217,13 +221,18 @@ function connectToSignalingServer() {
 }
 
 // Update connection status UI
+// Replace the updateConnectionStatus function with:
 function updateConnectionStatus(connected) {
+    const statusText = document.getElementById('statusText');
+    const statusDot = document.getElementById('statusDot');
+    
     if (connected) {
         statusText.textContent = 'Connected';
         statusDot.classList.add('connected');
     } else {
         statusText.textContent = 'Disconnected';
         statusDot.classList.remove('connected');
+        document.getElementById('userCount').textContent = '0 Online';
     }
 }
 
