@@ -1,3 +1,6 @@
+
+let onlineUsers = 0;
+
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -46,6 +49,8 @@ function findMatch(newUser) {
 }
 
 io.on('connection', (socket) => {
+    onlineUsers++;
+    io.emit('user-count', onlineUsers);
     console.log('New user connected:', socket.id);
     
     socket.on('join-queue', (data) => {
@@ -134,6 +139,8 @@ io.on('connection', (socket) => {
     });
     
     socket.on('disconnect', () => {
+        onlineUsers--;
+        io.emit('user-count', onlineUsers);
         console.log('User disconnected:', socket.id);
         
         // Remove from waiting queue if present
