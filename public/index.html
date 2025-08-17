@@ -41,8 +41,37 @@
             </h1>
 
             <div class="status-indicator">
-                <span id="statusText">Disconnected</span>
-                <div class="status-dot" id="statusDot"></div>
+                <style>
+                    .status-indicator {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        font-size: 0.9rem;
+                    }
+                    .status-dot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background-color: #dc3545;
+                        animation: pulse 2s infinite;
+                    }
+                    .status-dot.connected {
+                        background-color: #28a745;
+                    }
+                    .user-count {
+                        margin-left: 0.5rem;
+                        color: #adb5bd;
+                    }
+                    @keyframes pulse {
+                        0% { opacity: 1; }
+                        50% { opacity: 0.5; }
+                        100% { opacity: 1; }
+                    }
+                </style>
+                
+                <span id="statusText">Connected</span>
+                <div class="status-dot connected" id="statusDot"></div>
+                <span class="user-count" id="userCount">0 Online</span>
             </div>
         </header>
 
@@ -111,7 +140,6 @@
                 document.getElementById("year").textContent = new Date().getFullYear();
             </script>
         </footer>
-
     </div>
 
     <div class="modal" id="permissionModal">
@@ -141,4 +169,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
